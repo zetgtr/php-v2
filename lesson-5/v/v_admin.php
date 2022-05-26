@@ -8,5 +8,10 @@
             </div>
         </div>
     </div>
-    <?include "./components/add-admin-goods.php";?>
+        <button
+            class="add_goods"
+            onclick="addGoods()"
+        >
+            + add
+        </button>
 </main>

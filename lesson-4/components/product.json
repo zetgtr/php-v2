@@ -1,0 +1,41 @@
+[
+  {
+    "item": "Стёганая парка с капюшоном",
+    "product": "Парка, которая дополнит любой образ и поможет сохранить тепло!\r\n",
+    "collection": "МК",
+    "cena": "5000",
+    "id": 0,
+    "photo": "foto1.jpg",
+    "sizexs": "off",
+    "sizes": "on",
+    "sizem": "off",
+    "sizel": "on",
+    "colors": "on",
+    "colork": "off",
+    "col": "4",
+    "check": "on",
+    "coleck": "Зимняя"
+  },
+  {
+    "item": "Куртка PUMA",
+    "product": "Куртка утепленная WarmCELL Padded Jacket",
+    "collection": "Осень/Весна",
+    "cena": "8490",
+    "id": 1,
+    "photo": "foto4.jpg",
+    "photo1": null,
+    "photo2": null,
+    "sizexs": "on",
+    "sizes": "off",
+    "sizem": "on",
+    "sizel": "off",
+    "colors": "on",
+    "colork": "on",
+    "colorgr": "on",
+    "colorg": "on",
+    "colore": "on",
+    "colorb": "on",
+    "col": "10",
+    "check": "on"
+  }
+]

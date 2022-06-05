@@ -1,0 +1,109 @@
+
+<div class="content_wrp">
+    <div class="user_account">
+
+        <div class="user_account_top">
+            <h2 class="user_account_title page_title">Личный кабинет</h2>
+            <a class="user_account_logout" href="index.php?path=user/logout">Выход из личного кабинета</a>
+        </div>
+
+        <div class="user_account_sections">
+            <div class="user_account_sections_wrp">
+
+                <ul class="user_account_sections_list">
+                    <li class="user_account_sections_btn tab_btn active_btn" data-tab="1">Мои заказы</li>
+                    <li class="user_account_sections_btn tab_btn" data-tab="2">Написать отзыв</li>
+                    <li class="user_account_sections_btn tab_btn" data-tab="3">Мои данные</li>
+                </ul>
+
+                <div id="tab-1" class="user_account_sections_item tab_item" style="display: block;">
+                    {% if orders %}
+                        <div class="user_orders">
+                            {% for order in orders %}
+                                <div class="user_orders_item">
+                                    <div class="user_orders_info">
+                                        <p>№ заказа:&nbsp;{{ order.id_order }}</p>
+                                        <p>Дата:&nbsp;{{ order.date_order }}</p>
+                                        {% if order.status_order=='Активен' %}
+                                            <p class="user_orders_status">Статус:&nbsp;<span style="color:green;">{{ order.status_order }}</span></p>
+                                        {% elseif order.status_order=='Отменен'%}
+                                            <p class="user_orders_status">Статус:&nbsp;<span style="color:red;">{{ order.status_order }}</span></p>
+                                        {% else %}
+                                            <p class="user_orders_status">Статус:&nbsp;<span>{{ order.status_order }}</span></p>
+                                        {% endif %}
+                                        <p>Сумма заказа:&nbsp;{{ order.sum }}&nbsp;руб.</p>
+                                    </div>
+                                    <div class="user_orders_good_list">
+                                        {% for good in order_goods %}
+                                            {% if good.id_order==order.id_order %}
+                                                <div class="user_orders_good">
+                                                    <a class="user_orders_good_link" href="index.php?class=page&method=good&id={{ good.id_good }}">
+                                                        <img class="user_orders_good_img" src="../assets/img/catalog/{{ good.img }}">
+                                                    </a>
+                                                    <div>
+                                                        <p class="user_orders_good_category">{{ good.category }}&nbsp;{{ good.brand }}&nbsp;{{ good.model }}</p>
+                                                        <p class="user_orders_good_size">Размер: &nbsp;{{ good.good_size }}</p>
+                                                        <p class="user_orders_good_articul">Артикул: &nbsp;{{ good.id_good }}</p>
+                                                    </div>
+                                                    <p class="user_orders_good_price">Цена: &nbsp;{{ good.price }}&nbsp;руб.</p>
+                                                    <p class="user_orders_good_quantity">Количество: &nbsp;{{ good.good_count }}&nbsp;шт.</p> 
+                                                </div>
+                                            {% endif %}
+                                        {% endfor %}  
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        <p class="user_account_order_error">У вас нет заказов</p>
+                    {% endif %}    
+                </div>
+
+                <div id="tab-2" class="user_account_sections_item tab_item">
+        
+                        <div class="feedback_form_wrp">
+                            <form id="feedback_form" class="feedback_form">
+                                <div class="feedback_form_item">
+                                    <p>Ваша оценка:</p>
+                                    <div class="rating" data-value="5"></div>
+                                </div>
+                                <div class="feedback_form_item">
+                                    <label for="add_feedback_title">Название товара<span style="color:red;">*</span>:</label>
+                                    <input id="add_feedback_title" type="text" name="title" required>
+                                </div>
+                                <div class="feedback_form_item">
+                                    <label for="add_feedback_text">Текст отзыва<span style="color:red;">*</span>:</label>
+                                    <textarea id="add_feedback_text" name="text" required></textarea>
+                                </div>
+                                <a id="add_feedback_btn" class="add_feedback_btn">Опубликовать отзыв</a>
+                            </form>
+                        </div>
+                        
+                </div>
+
+                <div id="tab-3" class="user_account_sections_item tab_item">
+                    <div class="user_data_form">
+                        <div class="user_data_form_error">
+                            <p class="user_data_form_error_message">{{ message | raw }}</p>
+                        </div>
+                        <form method="post">
+                            <label for="user_data_form_name">Имя</label>
+                            <input id="user_data_form_name" type="text" name="name" value="{{ user.name }}" disabled>
+                            <label for="user_data_form_login">Логин</label>
+                            <input id="user_data_form_login" type="text" name="login" value="{{ user.login }}" disabled>
+                            <label for="user_data_form_pass">Пароль</span></label>
+                            <input id="user_data_form_pass" type="password" name="password" value="{{ user.password }}" disabled>
+                            <label for="user_data_form_email">E-mail</span></label>
+                            <input id="user_data_form_email" type="email" name="email" value="{{ user.email }}" disabled>
+                            <input type="submit" name="button" value="Изменить" disabled>
+                        </form>
+                    </div>
+                </div>
+        </div>
+
+    </div>
+</div>
+<div class="accaunt_user">   
+
+<script src="../assets/js/showTab.js"></script>
+<script src="../assets/js/raiting.js"></script>

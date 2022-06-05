@@ -1,0 +1,307 @@
+<div class="content_wrp">
+    <div class="user_account">
+
+        <div class="user_account_top">
+            <h2 class="user_account_title page_title">Личный кабинет</h2>
+            <a class="user_account_logout" href="index.php?class=user&method=logout">Выход из личного кабинета</a>
+        </div>
+
+        <div class="user_account_sections">
+            <div class="user_account_sections_wrp">
+
+                <ul class="user_account_sections_list">
+                    <li class="user_account_sections_btn tab_btn active_btn" data-tab="1">Заказы</li>
+                    <li class="user_account_sections_btn tab_btn" data-tab="2">Отзывы</li>
+                    <li class="user_account_sections_btn tab_btn" data-tab="3">Редактировать товары</li>
+                    <li class="user_account_sections_btn tab_btn" data-tab="4">Добавить товары</li>
+                    <li class="user_account_sections_btn tab_btn" data-tab="5">Мои данные</li>
+                </ul>
+
+                <div id="tab-1" class="user_account_sections_item tab_item" style="display: block;">
+                    {% if orders %}
+                        <div class="user_orders">
+                            {% for order in orders %}
+                                <div class="user_orders_item">
+
+                                    <div class="user_orders_info">
+                                        <p>№ заказа:&nbsp;{{ order.id_order }}</p>
+                                        <p>Дата:&nbsp;{{ order.date_order }}</p>
+                                        {% if order.status_order=='Активен' %}
+                                            <p class="user_orders_status">Статус:&nbsp;<span style="color:green;">{{ order.status_order }}</span></p>
+                                        {% elseif order.status_order=='Отменен'%}
+                                            <p class="user_orders_status">Статус:&nbsp;<span style="color:red;">{{ order.status_order }}</span></p>
+                                        {% else %}
+                                            <p class="user_orders_status">Статус:&nbsp;<span>{{ order.status_order }}</span></p>
+                                        {% endif %}
+                                        <p>Сумма заказа:&nbsp;{{ order.sum }}&nbsp;руб.</p>
+                                        <a class="user_orders_btn_cansel" onclick="canselOrder({{ order.id_order }})">Отменить</a>
+                                        <a class="user_orders_btn_processed" onclick="processedOrder({{ order.id_order }})">Обработан</a>
+                                    </div>
+
+                                    <div class="user_orders_good_list">
+                                        {% for good in order_goods %}
+                                            {% if good.id_order==order.id_order %}
+                                                <div class="user_orders_good">
+                                                    <a class="user_orders_good_link" href="index.php?class=page&method=good&id={{ good.id_good }}">
+                                                        <img class="user_orders_good_img" src="../assets/img/catalog/{{ good.img }}">
+                                                    </a>
+                                                    <div>
+                                                        <p class="user_orders_good_category">{{ good.category }}&nbsp;{{ good.brand }}&nbsp;{{ good.model }}</p>
+                                                        <p class="user_orders_good_size">Размер: &nbsp;{{ good.good_size }}</p>
+                                                        <p class="user_orders_good_articul">Артикул: &nbsp;{{ good.id_good }}</p>
+                                                    </div>
+                                                    <p class="user_orders_good_price">Цена: &nbsp;{{ good.price }}&nbsp;руб.</p>
+                                                    <p class="user_orders_good_quantity">Количество: &nbsp;{{ good.good_count }}&nbsp;шт.</p> 
+                                                </div>
+                                            {% endif %}
+                                        {% endfor %}  
+                                    </div>
+
+                                </div>
+                            {% endfor %}
+                    {% else %}
+                        <p class="user_account_order_error">Список заказов пуст</p>
+                    {% endif %}
+                </div>
+                </div>
+
+                <div id="tab-2" class="user_account_sections_item tab_item">
+                    <div class="feedbacks_wrp">
+                        {% if feedbacks %}
+                            {% for feedback in feedbacks %}
+
+                                <div class="feedback_status_wrp">
+                                    {% if feedback.status=='опубликован' %}
+                                        <p class="feedback_status">Статус:&nbsp;<span style="color:green;">{{ feedback.status }}</span></p>
+                                    {% elseif order.status_order=='заблокирован'%}
+                                        <p class="feedback_status">Статус:&nbsp;<span style="color:red;">{{ feedback.status }}</span></p>
+                                    {% else %}
+                                        <p class="feedback_status">Статус:&nbsp;{{ feedback.status }}</p>
+                                    {% endif %}
+                                    <div class="feedback_btns_wrp">
+                                        <p id="feedback_publish_btn" class="feedback_status_btn" onclick="publishFeedback({{ feedback.id }})">Опубликовать</p>
+                                        <p id="feedback_block_btn" class="feedback_status_btn" onclick="blockFeedback({{ feedback.id }})">Заблокировать</p>
+                                    </div>
+                                </div>
+                                <div class="feedback_wrp">
+                                    <div class="feedback_info">
+                                        <p class="feedback_user_name">{{ feedback.user_name }}</p>
+                                        <p class="feedback_date">{{ feedback.date }}</p>
+                                        <div class="feedback_rating">
+                                            {% for i in range(1, feedback.rating) %}
+                                                <div class="feedback_star"></div>
+                                            {% endfor %}
+                                        </div>
+                                    </div>
+                                    <div class="feedback_text">
+                                        <p class="feedback_title">{{ feedback.title }}</p>
+                                        <p class="feedback_text">{{ feedback.text }}</p>
+                                    </div>
+                                </div>
+            
+                            {% endfor %}
+                        {% else %}
+                            <p>Нет отзывов</p>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <div id="tab-3" class="user_account_sections_item tab_item">
+                    <div class="user_account_catalog_list catalog_list">
+                        {% if goods %}
+                            {% for good in goods %}
+                                        
+                                <div class="catalog_item_wrp" id="id_{{ good.id }}">
+                                    <a class="catalog_item_link" href="index.php?class=page&method=good&id={{ good.id }}">
+                                        <img class="catalog_item_img" src="../assets/img/catalog/{{ good.img }}" alt="catalog-img">
+                                        <p class="catalog_item_title">{{ good.category }}&nbsp;{{ good.brand }}&nbsp;{{ good.model }}</p>
+                                    </a>
+                                    <div class="catalog_item_buy">
+                                        <a class="catalog_item_buy_link good_edit_link" data-good="{{ good.id }}">Редактировать</a>
+                                        <p class="catalog_item_price">{{ good.price }} руб.</p>
+                                    </div>
+                                </div> 
+                                
+                            {% endfor %}
+                        {% else %}
+                            <p class="empty_catalog_message">Список товаров пуст</p>
+                        {% endif %}
+                        <div class="after"></div>
+                    </div>
+
+                    <div class="user_account_edit_block">
+                        <form id="edit_good_form" class="edit_good_form user_account_add_good_form" method="POST" enctype="multipart/form-data">
+                            <div class="user_account_add_good_article">
+                                <label for="id">Артикул:</label>
+                                <input id="edit_article" class="user_account_add_good_text" type="text" name="id">
+                            </div>
+                            <div class="user_account_add_good_select">
+                                <label class="user_account_add_good_title" for="category">Категория:
+                                    <select id="edit_category" name="category" size="1">
+                                        <option value="1">Кроссовки</option>
+                                        <option value="2">Кеды</option>
+                                    </select>
+                                </label>
+                                <label class="user_account_add_good_title" for="brand">Бренд:
+                                    <select id="edit_brand" name="brand" size="1">
+                                        <option value="1">Adidas</option>
+                                        <option value="2">Nike</option>
+                                        <option value="3">Reebok</option>
+                                        <option value="4">Salomon</option>
+                                        <option value="5">Balenciaga</option>
+                                        <option value="6">Puma</option>
+                                        <option value="7">Ecco</option>
+                                        <option value="8">New balance</option>
+                                        <option value="9">Asics</option>
+                                    </select>
+                                </label>
+                                <label class="user_account_add_good_title" for="color">Цвет:
+                                    <select id="edit_color" name="color" size="1">
+                                        <option value="1">черный</option>
+                                        <option value="2">белый</option>
+                                        <option value="3">красный</option>
+                                        <option value="4">желтый</option>
+                                        <option value="5">зеленый</option>
+                                        <option value="6">синий</option>
+                                        <option value="7">голубой</option>
+                                        <option value="8">оранжевый</option>
+                                        <option value="9">розовый</option>
+                                        <option value="10">фиолетовый</option>
+                                        <option value="11">серый</option>
+                                    </select>
+                                </label>
+                                <label class="user_account_add_good_title" for="season">Сезон:
+                                    <select id="edit_season" name="season" size="1">
+                                        <option value="1">зима</option>
+                                        <option value="2">лето</option>
+                                        <option value="3">демисезон</option>
+                                    </select>
+                                </label>
+                            </div>
+                            <div class="user_account_add_good_section">
+                                <label class="user_account_add_good_title" for="model">Модель:
+                                    <input id="edit_model" class="user_account_add_good_text" type="text" name="model">
+                                </label>
+                                <label class="user_account_add_good_title" for="material">Материал:
+                                    <input id="edit_material" class="user_account_add_good_text" type="text" name="material">
+                                </label>
+                            </div>
+                            <div class="user_account_add_good_description">
+                                <label for="description">Описание:</label>
+                                <textarea id="edit_description" class="user_account_add_good_description_text" name="description"></textarea>
+                            </div>
+                            <div class="user_account_add_good_price">
+                                <label for="price">Цена:</label>
+                                <input id="edit_price" class="user_account_add_good_text" type="text" name="price">
+                            </div>
+                            <div class="user_account_edit_block_img">
+                                <img id="edit_img" alt="good-img">
+                            </div>
+                            <div class="user_account_add_good_img">
+                                <label for="img">Изображение:</label>
+                                <input multiple="multiple" type="file" name="img" accept="image/*">
+                            </div>
+                            <div class="user_account_edit_btns">
+                                <input class="user_account_edit_good_btn" type="submit" value="Сохранить"> 
+                                <a class="user_account_edit_back_link">Выйти из редактирования</a> 
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                
+                <div id="tab-4" class="user_account_sections_item tab_item">
+                    <div class="user_account_add_good">
+                        <form id="add_good_form" class="user_account_add_good_form" method="POST" enctype="multipart/form-data">
+
+                            <div class="user_account_add_good_select">
+                                <label class="user_account_add_good_title" for="category">Категория:
+                                    <select name="category" size="1">
+                                        <option value="1">Кроссовки</option>
+                                        <option value="2">Кеды</option>
+                                    </select>
+                                </label>
+                                <label class="user_account_add_good_title" for="brand">Бренд:
+                                    <select name="brand" size="1">
+                                        <option value="1">Adidas</option>
+                                        <option value="2">Nike</option>
+                                        <option value="3">Reebok</option>
+                                        <option value="4">Salomon</option>
+                                        <option value="5">Balenciaga</option>
+                                        <option value="6">Puma</option>
+                                        <option value="7">Ecco</option>
+                                        <option value="8">New balance</option>
+                                        <option value="9">Asics</option>
+                                    </select>
+                                </label>
+                                <label class="user_account_add_good_title" for="color">Цвет:
+                                    <select name="color" size="1">
+                                        <option value="1">черный</option>
+                                        <option value="2">белый</option>
+                                        <option value="3">красный</option>
+                                        <option value="4">желтый</option>
+                                        <option value="5">зеленый</option>
+                                        <option value="6">синий</option>
+                                        <option value="7">голубой</option>
+                                        <option value="8">оранжевый</option>
+                                        <option value="9">розовый</option>
+                                        <option value="10">фиолетовый</option>
+                                        <option value="11">серый</option>
+                                    </select>
+                                </label>
+                                <label class="user_account_add_good_title" for="season">Сезон:
+                                    <select name="season" size="1">
+                                        <option value="1">зима</option>
+                                        <option value="2">лето</option>
+                                        <option value="3">демисезон</option>
+                                    </select>
+                                </label>
+                            </div>
+                            <div class="user_account_add_good_section">
+                                <label class="user_account_add_good_title" for="model">Модель:
+                                    <input class="user_account_add_good_text" type="text" name="model">
+                                </label>
+                                <label class="user_account_add_good_title" for="material">Материал:
+                                    <input class="user_account_add_good_text" type="text" name="material">
+                                </label>
+                            </div>
+                            <div class="user_account_add_good_description">
+                                <label for="description">Описание:</label>
+                                <textarea class="user_account_add_good_description_text" name="description"></textarea>
+                            </div>
+                            <div class="user_account_add_good_price">
+                                <label for="price">Цена:</label>
+                                <input class="user_account_add_good_text" type="text" name="price">
+                            </div>
+                            <div class="user_account_add_good_img">
+                                <label for="img">Изображение:</label>
+                                <input multiple="multiple" type="file" name="img" accept="image/*">
+                            </div>
+                            <input class="user_account_add_good_btn" type="submit" value="Сохранить">  
+                        </form>
+                    </div>
+                </div>
+
+                <div id="tab-5" class="user_account_sections_item tab_item">
+                    <div class="user_data_form">
+                        <div class="user_data_form_error">
+                            <p class="user_data_form_error_message">{{ message | raw }}</p>
+                        </div>
+                        <form method="post">
+                            <label for="user_data_form_name">Имя</label>
+                            <input id="user_data_form_name" type="text" name="name" value="{{ user.name }}" disabled>
+                            <label for="user_data_form_login">Логин</label>
+                            <input id="user_data_form_login" type="text" name="login" value="{{ user.login }}" disabled>
+                            <label for="user_data_form_pass">Пароль</span></label>
+                            <input id="user_data_form_pass" type="password" name="password" value="{{ user.password }}" disabled>
+                            <label for="user_data_form_email">E-mail</span></label>
+                            <input id="user_data_form_email" type="email" name="email" value="{{ user.email }}" disabled>
+                            <input type="submit" name="button" value="Изменить" disabled>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>  
+</div>
+<script src="../assets/js/showTab.js"></script>

@@ -1,0 +1,126 @@
+
+<div class="content_wrp">
+    <div class="good">
+        <div class="good_param">
+            <div class="good_img_wrp">
+                <img class="good_img" src="../assets/img/catalog/{{ good.img }}" alt="good_img">
+                <p>на сайте представлены фотографии реальных товаров</p>
+            </div>
+        
+            <div class="good_desc_wrp">
+                <h2 class="good_title">{{ good.category }}&nbsp;{{ good.brand }}&nbsp;{{ good.model }}</h2>
+                <p class="good_article">Артикул:&nbsp; {{ good.id }} / 
+                    <a class="brands_link" href="index.php?path=catalog&brand={{ good.brand }}"><span>{{ good.brand }}</span></a></p>
+                <p class="good_price">{{ good.price }} руб.</p>
+                <table class="good_desc">
+                    <tr class="good_desc_item">
+                        <td>Материал верха</td>
+                        <td>{{ good.material }}</td>
+                    </tr>
+                    <tr class="good_desc_item">
+                        <td>Модель</td>
+                        <td>{{ good.model }}</td>
+                    </tr>
+                    <tr class="good_desc_item">
+                        <td>Сезон</td>
+                        <td>{{ good.season }}</td>
+                    </tr>
+                    <tr class="good_desc_item">
+                        <td>Цвет</td>
+                        <td>{{ good.color }}</td>
+                    </tr>
+                </table>
+    
+                <div class="good_size">
+                    <p class="good_size_title">Размер</p>
+                    <form id="size_form" action="javascript:void(null);" method="POST" onsubmit="addGood({{ good.id }})">
+                        <div class="size_wrp">
+                            <input id="size_36" name="size" type="radio" value="36" onchange="document.getElementById('add_cart').disabled = !this.checked;" >
+                            <label for="size_36">36</label>
+                        </div>                  
+                        <div class="size_wrp">
+                            <input id="size_37" name="size" type="radio" value="37" onchange="document.getElementById('add_cart').disabled = !this.checked;" >
+                            <label for="size_37">37</label>
+                        </div>
+                        <div class="size_wrp">
+                            <input id="size_38" name="size" type="radio" value="38" onchange="document.getElementById('add_cart').disabled = !this.checked;" >
+                            <label for="size_38">38</label>
+                        </div>
+                        <div class="size_wrp">
+                            <input id="size_39" name="size" type="radio" value="39" onchange="document.getElementById('add_cart').disabled = !this.checked;" >
+                            <label for="size_39">39</label>
+                        </div>
+                        <div class="size_wrp">
+                            <input id="size_40" name="size" type="radio" value="40" onchange="document.getElementById('add_cart').disabled = !this.checked;" >
+                            <label for="size_40">40</label>
+                        </div>
+                        <div class="size_wrp">
+                            <input id="size_41" name="size" type="radio" value="41" onchange="document.getElementById('add_cart').disabled = !this.checked;" >
+                            <label for="size_41">41</label>
+                        </div>
+                        
+                        
+                        <input id="add_cart" type="submit" value="Добавить в корзину" disabled>
+                        <div class="error_wrp"><p class="error">Выберите размер!</p></div>
+                        <p class="good_size_text">Бесплатная доставка<br>При 100% предоплате заказов от 5 000 рублей </p>
+                    </form>
+                </div>
+                
+            </div>
+        </div>
+      
+        <div class="good_details">
+            <div class="good_details_wrp">
+                <ul class="good_details_list">
+                    <li class="good_details_btn tab_btn active_btn" data-tab="1">Описание</li>
+                    <li class="good_details_btn tab_btn" data-tab="2">Оплата и доставка</li>
+                    <li class="good_details_btn tab_btn" data-tab="3">Гарантии</li>
+                    <li class="good_details_btn tab_btn" data-tab="4">Обмен и возврат</li>  
+                    <li class="good_details_btn tab_btn" data-tab="5">О товаре</li>             
+                </ul>
+    
+                <div id="tab-1" class="good_details_item tab_item" style="display: block;">
+                    {{ good.description }}
+                </div>
+                <div id="tab-2" class="good_details_item tab_item">
+                    <strong>Бесплатная доставка:</strong>
+                    <p>- При 100% оплате заказа от 5 000 рублей<br>- Не действует для отдаленных районов</p>
+    
+                    <strong>Оплатить заказ можно разными способами:</strong>
+                    <p>- Банковской картой Visa или MasterCard<br>- Электронными деньгами</p>
+                    <a href="index.php?path=payment">Подробнее</a>
+    
+                    <strong>Мы осуществляем доставку по РФ и СНГ:</strong>
+                    <p>- Доставка почтой России<br>- Средние сроки доставки 5-15 дней</p><br>
+                    <p>- Доставка СДЭК<br>- Средние сроки доставки до 7 дней</p>
+                    <a href="index.php?path=delivery">Подробнее</a>
+                </div>
+                <div id="tab-3" class="good_details_item tab_item">
+                    <strong>Срок действия гарантии 30 дней с момента получения заказа</strong><br>
+                    <p>Гарантийные условия соответствуют закону РФ «О защите прав потребителей»</p><br>
+                    <a href="index.php?path=warranty">Подробнее</a>
+                </div>
+                <div id="tab-4" class="good_details_item tab_item">
+                    <strong>Вы можете обменять или вернуть товар в течение 14 дней с момента покупки</strong><br>
+                    <p>Потребитель вправе обменять непродовольственный товар надлежащего качества на аналогичный 
+                        товар у продавца, у которого этот товар был приобретен, если указанный товар не подошел 
+                        по форме, габаритам, фасону, расцветке, размеру или комплектации</p><br>
+                    <a href="index.php?path=refund">Подробнее</a>
+                </div>
+                <div id="tab-5" class="good_details_item tab_item">
+                    <strong>Товары представленные на сайте являются качественной репликой (категория ААА+)</strong>
+                    <p>Реплика категорий ААА+ это высокое качество, и долгий срок службы</p>
+
+                    <strong>Фотографии товара представленные на сайте redsneaker.ru являются подлинными</strong>
+                    <p>При съемке товара использована профессиональная техника и освещение. Полное или частичное 
+                        копирование материалов запрещено</p>
+                </div>
+            </div>  
+        </div>
+    </div>
+
+    <script src="../assets/js/showTab.js"></script>
+
+    {% include 'popularGoods.twig' %}
+</div>
+    

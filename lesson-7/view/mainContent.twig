@@ -1,0 +1,52 @@
+
+<div id="carouselExampleFade" class="main_banner carousel slide carousel-fade" data-ride="carousel" data-pause="false">
+    <div class="carousel-inner">
+      <div class="carousel-item active carousel-item-2" data-interval="10000"><a href="index.php?path=good/7"></a></div>
+      <div class="carousel-item carousel-item-3" data-interval="10000"><a href="index.php?path=good/2"></a></div>
+      <div class="carousel-item carousel-item-4" data-interval="10000"><a href="index.php?path=good/5"></a></div>
+    </div>
+    <a class="carousel-control-prev" href="#carouselExampleFade" role="button" data-slide="prev">
+      <div class="arrow-2"><div></div></div>
+    </a>
+    <a class="carousel-control-next" href="#carouselExampleFade" role="button" data-slide="next">
+        <div class="arrow-1"><div></div></div>
+    </a>
+</div>
+
+<div class="main">
+
+    {% include 'brands.twig' %}
+    
+    <div class="main_shop_info">
+
+        <p> Тем, кто занимается спортом или просто хочет выглядеть стильно и современно, наш интернет-магазин 
+        «Redsneaker.ru» предлагает европейское качество и приятные цены. В онлайн-каталоге 
+        представлены интересные модели модных расцветок и фасонов, способные удовлетворить запросы любого 
+        современного человека.</p>
+
+        <p> Мы не только предлагаем купить качественную спортивную обувь, но и:
+            <ul>
+                <li>делаем спорт доступным каждому;</li>
+                <li>предоставляем возможность выбрать фирменные вещи, не выходя из дома;</li>
+                <li>показываем, что магазин спортивной обуви – это удобно и выгодно, в особенности, если речь идет о Redsneaker.ru;</li>
+                <li>гарантируем своевременную доставку товара в любой из уголков России;</li>
+                <li>проводим регулярные акции и скидки на сайте.</li>
+            </ul>   
+        </p>
+
+        <p> Сайт магазина спортивной обуви реализует оригинальные коллекции женской и мужской экипировки различных 
+        брендов, среди которых: Adidas, Asics, Columbia, Nike и прочие «гладиаторы» мировой арены.</p>
+
+        <p> Для того чтобы купить спортивную обувь недорого достаточно выбрать нужный товар, добавить 
+        его в корзину, а также заполнить онлайн-заявку. Если желаете уточнить размер или особенности выбранной модели,
+        всегда можете рассчитывать на помощь наших консультантов.</p>
+
+    </div>
+
+    {% include 'popularGoods.twig' %}
+
+    {% include 'subscribe.twig' %}
+
+    {% include 'newArrival.twig' %}
+
+</div>

@@ -1,0 +1,20 @@
+.new_arrival{
+    padding: 30px 0;
+    &_title{
+        padding: 0 10px;
+        font-weight: bold;
+        color: #7A7A7A;
+        text-transform: uppercase;
+        text-align: center;
+    }
+    &_wrp{
+        padding: 15px 0;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        &::after{
+            content: "";
+            width: 250px;
+        }
+    }
+}

@@ -1,0 +1,21 @@
+
+<div class="new_arrival">
+    <h2 class="new_arrival_title">Новое поступление</h2>
+    <div class="new_arrival_wrp">
+        {% if newGoods %}
+            {% for good in newGoods %}
+                       
+            <div class="catalog_item_wrp" id="id_{{ good.id }}">
+                <a class="catalog_item_link" href="index.php?path=good/{{ good.id }}">
+                    <img class="catalog_item_img" src="../assets/img/catalog/{{ good.img }}" alt="catalog-img">
+                    <p class="catalog_item_title">{{ good.category }}&nbsp;{{ good.brand }}&nbsp;{{ good.model }}</p>
+                </a>
+                <div class="catalog_item_buy">
+                    <p class="catalog_item_price">{{ good.price }} руб.</p>
+                </div>
+            </div> 
+            
+            {% endfor %}
+        {% endif %}
+    </div>   
+</div>

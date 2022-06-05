@@ -1,0 +1,23 @@
+
+<div class="content_wrp">
+    <div class="login">
+        <div class="login_form">
+            <h2 class="login_form_title">Авторизация на сайте</h2>
+            <p class="login_form_text">Войдите используя свой логин и пароль</p>
+            <div class="login_form_error">
+                <p class="login_form_error_message">{{ message }}</p>
+            </div>
+            <form method="post">
+                <label for="login_form_login">Логин<span style="color:red;">*</span></label>
+                <input id="login_form_login" type="text" name="login" required>
+                <label for="login_form_pass">Пароль<span style="color:red;">*</span></label>
+                <input id="login_form_pass" type="password" name="password" required>
+                <input type="submit" name="button" value="Войти">
+            </form>
+        </div>
+        <div class="login_reg">
+            <p>Вы новый пользователь? Пройдите регистрацию</p>
+            <a href="index.php?path=user/reg" class="login_reg_link">Регистрация</a>
+        </div>
+    </div>
+</div>

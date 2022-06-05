@@ -1,0 +1,64 @@
+
+<div class="content_wrp">
+    <div class="cart">
+        <h2 class="cart_title page_title">Корзина</h2>
+
+        {% if goods %}   
+            <table class="cart_table">
+                <tr class="cart_table_title">
+                    <th>Фото</th>
+                    <th>Наименование товара</th>
+                    <th>Количество</th>
+                    <th>Цена</th>
+                    <th>Сумма</th>
+                    <th></th>
+                </tr>
+
+                {% for good in goods %}
+
+                    <tr class="cart_table_item">
+                        <td>
+                            <a href="index.php?path=good/{{ good.id }}">
+                                <img class="cart_table_item_img" src="../assets/img/catalog/{{ good.img }}">
+                            </a>
+                        </td>
+                        <td>
+                            <div class="cart_table_item_info">
+                                <p class="cart_table_item_category">{{ good.category }}&nbsp;{{ good.brand }}&nbsp;{{ good.model }}</p>
+                                <p class="cart_table_item_size">Размер: &nbsp;{{ good.size }}</p>
+                                <p class="cart_table_item_articul">Артикул: &nbsp;{{ good.id }}</p>
+                            </div>
+                        </td>
+                        <td>{{ good.quantity }}</td>
+                        <td>{{ good.price }} руб.</td>
+                        <td>{{ good.sum }} руб.</td>
+                        <td><a class="cart_table_item_delete_link" href="index.php?path=cart/cart" onclick="deleteGood({{ good.key }})">Удалить</a></td>
+                    </tr>                                                 
+                    
+                {% endfor %}
+
+            </table>
+
+            <div class="cart_sum">
+                <p>ИТОГО: &nbsp; {{ cartSum }} руб.</p>
+            </div>
+
+            <div class="cart_btns">
+                <a class="cart_catalog_link" href="index.php?path=page/catalog">Продолжить покупки</a>
+                <a class="cart_clear_btn" href="index.php?path=cart/clear">Очистить корзину</a>
+                {% if user == true %}
+                    <a id="save_order" class="cart_order_link">Оформить заказ</a>
+                {% endif %}
+                {% if user == false %}
+                    <p class="cart_login">Для заказа необходимо 
+                        <a class="cart_login_link" href="index.php?path=user/login" style="color:red;">авторизоваться</a> 
+                    </p>
+                {% endif %}
+            </div>
+
+        {% else %}
+            <p class="empty_catalog_message">В корзине нет товаров</p>
+        {% endif %}
+
+    </div>
+</div>

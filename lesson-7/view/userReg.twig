@@ -1,0 +1,27 @@
+
+<div class="content_wrp">
+    <div class="reg">
+        <div class="reg_form">
+            <h2 class="reg_form_title">Регистрация на сайте</h2>
+            <p class="reg_form_text">Введите ваши данные</p>
+            <div class="reg_form_error">
+                <p class="reg_form_error_message">{{ message | raw }}</p>
+            </div>
+            <form method="post">
+                <label for="reg_form_name">Имя<span style="color:red;">*</span></label>
+                <input id="reg_form_name" type="text" name="name" required>
+                <label for="reg_form_login">Логин<span style="color:red;">*</span></label>
+                <input id="reg_form_login" type="text" name="login" required>
+                <label for="reg_form_pass">Пароль<span style="color:red;">*</span></label>
+                <input id="reg_form_pass" type="password" name="password" required>
+                <label for="reg_form_email">E-mail<span style="color:red;">*</span></label>
+                <input id="reg_form_email" type="email" name="email" required>
+                <input type="submit" name="button" value="Зарегистрироваться">
+            </form>
+        </div>
+        <div class="reg_login">
+            <p>Вы уже зарегистрированы? Пройдите авторизацию</p>
+            <a href="index.php?path=user/login" class="reg_login_link">Авторизация</a>
+        </div>
+    </div>
+</div>

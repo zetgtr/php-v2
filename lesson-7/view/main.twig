@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>{{title}}</title>
+	<meta content="text/html; charset=UTF-8" http-equiv="content-type">	
+	<link rel="preconnect" href="https://fonts.gstatic.com">
+	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700&display=swap" rel="stylesheet"> 
+	<link rel="stylesheet" href="../lib/font-awesome-4.7.0/css/font-awesome.min.css">
+	<link rel="stylesheet" type="text/css" media="screen" href="../assets/css/style.css" /> 	
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+</head>
+<body>
+
+	<div class="wrp">
+
+		{% include 'header.twig' %}
+		<script src="../assets/js/headerStyle.js"></script>
+
+		<main id="content" class="content">
+			{{content | raw}} 
+		</main>
+				
+		{% include 'footer.twig' %}
+
+	</div>
+		{% include 'modal.twig' %}
+	<script src="../lib/bootstrap-4.5.3-dist/js/bootstrap.bundle.min.js"></script>
+	<script src="../assets/js/ajax.js"></script>
+	<script src="../assets/js/modal.js"></script>
+</body>
+</html>
